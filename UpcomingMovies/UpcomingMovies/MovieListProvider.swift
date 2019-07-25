@@ -11,6 +11,8 @@ import SwiftUI
 import Combine
 
 class MoviesProvider: BindableObject {
+    private var page = 1
+    
     var movies: Movies = [] {
         didSet {
             didChange.send(self)
@@ -19,25 +21,30 @@ class MoviesProvider: BindableObject {
     var didChange = PassthroughSubject<MoviesProvider, Never>()
     
     func fetch() {
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/3/movie/upcoming?page=1&language=en-US&api_key=c5850ed73901b8d268d0898a8a9d8bff")! as URL,
+        print("Fetching page \(page)")
+        let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/3/movie/upcoming?page=\(page)&language=en-US&api_key=c5850ed73901b8d268d0898a8a9d8bff")! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
                                           timeoutInterval: 10.0)
         request.httpMethod = "GET"
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-           
+           print(String(data: data!, encoding: String.Encoding.utf8))
+            
             guard let data = data, error == nil else {
                 return
             }
             guard let requestResultModel = try? GetMoviesResultModel(data: data) else {
+                print("Failed to convert model")
                 return
             }
-            guard let movies = requestResultModel.results else {
+            guard let addedMovies = requestResultModel.results else {
+                 print("Failed to get movies.")
                 return
             }
             DispatchQueue.main.async {
-                self.movies = movies
+                self.page += 1
+                self.movies += addedMovies
             }
         })
         dataTask.resume()

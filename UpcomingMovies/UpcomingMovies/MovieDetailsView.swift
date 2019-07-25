@@ -13,13 +13,16 @@ struct MovieDetailsView : View {
     var movieItem: MovieItem
     
     var body: some View {
+        
         VStack{
             HStack{
                 URLImage(movieItem.getAbsolutePosterURL()).resizable().frame(width: 100.0, height: 150.0)
                 URLImage(movieItem.getAbsoluteBackdropURL()).resizable().frame(width: 100.0, height: 150.0)
             }
+            
             Text(movieItem.title ?? "no title").font(.title)
             Text(movieItem.releaseDate ?? "no release date")
+            
             Text(movieItem.overview ?? "no overview").lineLimit(100).padding()
             Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow).padding()
             Spacer()
@@ -61,8 +64,9 @@ struct Chart : View {
     }
 }
 
+
 #if DEBUG
-let movieItem = MovieItem(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: OriginalLanguage.en, originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
+let movieItem = MovieItem(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
 struct MovieDetailsView_Previews : PreviewProvider {
     static var previews: some View {
         MovieDetailsView(movieItem: movieItem)

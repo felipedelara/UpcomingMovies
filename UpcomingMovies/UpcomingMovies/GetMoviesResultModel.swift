@@ -141,7 +141,7 @@ class Result: Codable, Identifiable{
     let title: String?
     let popularity: Double?
     let posterPath: String?
-    let originalLanguage: OriginalLanguage?
+    let originalLanguage: String?
     let originalTitle: String?
     let genreIDS: [Int]?
     let backdropPath: String?
@@ -167,7 +167,7 @@ class Result: Codable, Identifiable{
         case releaseDate = "release_date"
     }
     
-    init(voteCount: Int?, id: Int?, video: Bool?, voteAverage: Double?, title: String?, popularity: Double?, posterPath: String?, originalLanguage: OriginalLanguage?, originalTitle: String?, genreIDS: [Int]?, backdropPath: String?, adult: Bool?, overview: String?, releaseDate: String?) {
+    init(voteCount: Int?, id: Int?, video: Bool?, voteAverage: Double?, title: String?, popularity: Double?, posterPath: String?, originalLanguage: String?, originalTitle: String?, genreIDS: [Int]?, backdropPath: String?, adult: Bool?, overview: String?, releaseDate: String?) {
         self.voteCount = voteCount
         self.id = id
         self.video = video
@@ -226,7 +226,7 @@ extension Result {
         title: String?? = nil,
         popularity: Double?? = nil,
         posterPath: String?? = nil,
-        originalLanguage: OriginalLanguage?? = nil,
+        originalLanguage: String?? = nil,
         originalTitle: String?? = nil,
         genreIDS: [Int]?? = nil,
         backdropPath: String?? = nil,
@@ -259,13 +259,6 @@ extension Result {
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
         return String(data: try self.jsonData(), encoding: encoding)
     }
-}
-
-enum OriginalLanguage: String, Codable {
-    case de = "de"
-    case en = "en"
-    case es = "es"
-    case ko = "ko"
 }
 
 // MARK: - Helper functions for creating encoders and decoders

@@ -13,7 +13,7 @@ import URLImage
 
 struct MoviesView : View {
     @EnvironmentObject var movieProvider: MoviesProvider
-
+    
     var body: some View {
         NavigationView {
             List{
@@ -29,8 +29,8 @@ struct MoviesView : View {
                     }
                 }
                 
-                Button(action: {}, label: {
-                    Text("Load More").font(.title).foregroundColor(Color.blue)
+                Button(action: {self.movieProvider.fetch()}, label: {
+                    Text("Load More").font(.title).foregroundColor(Color.blue).frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 })
             }.navigationBarTitle(Text("Upcoming Movies"))
         }
