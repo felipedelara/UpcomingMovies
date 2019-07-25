@@ -18,11 +18,14 @@ struct ContentView : View {
         NavigationView {
             List{
                 ForEach (movieProvider.movies){ item in
-                    HStack{
-                        URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).padding(10)
-                        VStack(alignment: .leading){
-                        Text(item.title ?? "no title")
-                        Text(item.releaseDate ?? "no date")
+                    NavigationLink(destination: MovieDetailsView(movieItem: item)) {
+                        HStack{
+                            URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).padding(10)
+                            VStack(alignment: .leading){
+                                Text(item.title ?? "no title").font(.title)
+                                Text(item.releaseDate ?? "no date")
+                            }
+                            
                         }
                     }
                 }

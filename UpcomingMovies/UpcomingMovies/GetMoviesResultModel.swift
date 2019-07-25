@@ -130,6 +130,7 @@ extension Dates {
 }
 
 typealias Movies = [Result]
+typealias MovieItem = Result
 
 // MARK: - Result
 class Result: Codable, Identifiable{
@@ -187,6 +188,12 @@ class Result: Codable, Identifiable{
     public func getAbsolutePosterURL() -> URL{
         //Example: https://image.tmdb.org/t/p/w500///wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg
         let stringURL = "https://image.tmdb.org/t/p/w500/\(self.posterPath ?? "")"
+        let url = URL(string: stringURL)
+        return url!
+    }
+    
+    public func getAbsoluteBackdropURL() -> URL{
+        let stringURL = "https://image.tmdb.org/t/p/w500/\(self.backdropPath ?? "")"
         let url = URL(string: stringURL)
         return url!
     }
