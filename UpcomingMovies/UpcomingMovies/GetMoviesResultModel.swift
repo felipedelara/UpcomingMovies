@@ -1,10 +1,10 @@
-//   let movieResultModel = try MovieResultModel(json)
+
+// This file was generated from JSON Schema using quicktype
+// Modificate with caution
 
 import Foundation
 import Combine
 import SwiftUI
-
-//   let resultModel = try ResultModel(json)
 
 // MARK: - ResultModel
 class GetMoviesResultModel: Codable {
@@ -148,21 +148,22 @@ class Result: Codable, Identifiable{
     let overview: String?
     let releaseDate: String?
     
+    //Quicktype is not handling complex key names very well, so if they have more that one word it is best to specify
     enum CodingKeys: String, CodingKey {
         case voteCount
         case id
         case video
-        case voteAverage
+        case voteAverage = "vote_average"
         case title
         case popularity
         case posterPath = "poster_path"
-        case originalLanguage
+        case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case genreIDS
-        case backdropPath
+        case genreIDS = "genre_ids"
+        case backdropPath = "backdrop_path"
         case adult
         case overview
-        case releaseDate
+        case releaseDate = "release_date"
     }
     
     init(voteCount: Int?, id: Int?, video: Bool?, voteAverage: Double?, title: String?, popularity: Double?, posterPath: String?, originalLanguage: OriginalLanguage?, originalTitle: String?, genreIDS: [Int]?, backdropPath: String?, adult: Bool?, overview: String?, releaseDate: String?) {
@@ -185,8 +186,7 @@ class Result: Codable, Identifiable{
     //Technical Debt, safe unwrapping this here until I figure how to handle not returning an optional to the SwiftUI View
     public func getAbsolutePosterURL() -> URL{
         //Example: https://image.tmdb.org/t/p/w500///wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg
-        let stringURL = "https://image.tmdb.org/t/p/w500//\(self.posterPath ?? "")"
-        print(stringURL)
+        let stringURL = "https://image.tmdb.org/t/p/w500/\(self.posterPath ?? "")"
         let url = URL(string: stringURL)
         return url!
     }

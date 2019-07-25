@@ -9,6 +9,8 @@
 import SwiftUI
 import URLImage
 
+//Thanks to Dmytro Anokhin for the cool URLImage View.
+
 struct ContentView : View {
     @EnvironmentObject var movieProvider: MoviesProvider
 
@@ -18,10 +20,13 @@ struct ContentView : View {
                 ForEach (movieProvider.movies){ item in
                     HStack{
                         URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).padding(10)
-                        Text(item.title ?? "- No title found. -")
+                        VStack(alignment: .leading){
+                        Text(item.title ?? "no title")
+                        Text(item.releaseDate ?? "no date")
+                        }
                     }
                 }
-            }
+            }.navigationBarTitle(Text("Upcoming Movies"))
         }
     }
 }

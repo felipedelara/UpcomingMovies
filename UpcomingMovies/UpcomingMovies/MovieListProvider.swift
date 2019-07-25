@@ -26,28 +26,20 @@ class MoviesProvider: BindableObject {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if (error != nil) {
-                print(error)
-            } else {
-                print(String(decoding: data!, as: UTF8.self))
-                let httpResponse = response as? HTTPURLResponse
-                print(httpResponse)
-                
-                guard let data = data, error == nil else {
-                    return
-                }
-                guard let result = try? GetMoviesResultModel(data: data) else {
-                    return
-                }
-                guard let listModel = result.results else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.movies = listModel
-                }
+           
+            guard let data = data, error == nil else {
+                return
+            }
+            guard let requestResultModel = try? GetMoviesResultModel(data: data) else {
+                return
+            }
+            guard let movies = requestResultModel.results else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.movies = movies
             }
         })
         dataTask.resume()
-
     }
 }
