@@ -14,7 +14,6 @@ struct MovieDetailsView : View {
     var genres: Genres
     
     var body: some View {
-        
         VStack{
             HStack{
                 URLImage(movieItem.getAbsolutePosterURL()).resizable().frame(width: 100.0, height: 150.0)

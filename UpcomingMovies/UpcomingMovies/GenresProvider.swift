@@ -27,7 +27,6 @@ class GenresProvider: BindableObject {
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            print(String(data: data!, encoding: String.Encoding.utf8))
             
             guard let data = data, error == nil else {
                 return
