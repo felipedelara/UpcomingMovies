@@ -55,6 +55,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		550FD13022EB984A0013FE85 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				550FD12C22EB6E7E0013FE85 /* MovieListViewModel.swift */,
+				550FD12E22EB97B50013FE85 /* MovieViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		550FD13122EB98580013FE85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				55BDB93922EA55E900EFBD00 /* MovieListView.swift */,
+				55BDB93322E9EFE800EFBD00 /* MovieDetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		550FD13222EB98640013FE85 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				55732B8222E9304500DB7717 /* MovieListProvider.swift */,
+				55CEDA2722EA88F500E66498 /* GenresProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		550FD13322EB98710013FE85 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				55732B8422E930A900DB7717 /* GetMoviesResultModel.swift */,
+				55CEDA2922EA895D00E66498 /* GenresResultModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		55732B6022E92C0800DB7717 = {
 			isa = PBXGroup;
 			children = (
@@ -76,14 +112,10 @@
 			children = (
 				55732B6C22E92C0800DB7717 /* AppDelegate.swift */,
 				55732B6E22E92C0800DB7717 /* SceneDelegate.swift */,
-				55BDB93922EA55E900EFBD00 /* MovieListView.swift */,
-				550FD12C22EB6E7E0013FE85 /* MovieListViewModel.swift */,
-				550FD12E22EB97B50013FE85 /* MovieViewModel.swift */,
-				55BDB93322E9EFE800EFBD00 /* MovieDetailsView.swift */,
-				55732B8222E9304500DB7717 /* MovieListProvider.swift */,
-				55CEDA2722EA88F500E66498 /* GenresProvider.swift */,
-				55732B8422E930A900DB7717 /* GetMoviesResultModel.swift */,
-				55CEDA2922EA895D00E66498 /* GenresResultModel.swift */,
+				550FD13122EB98580013FE85 /* Views */,
+				550FD13022EB984A0013FE85 /* ViewModels */,
+				550FD13222EB98640013FE85 /* Providers */,
+				550FD13322EB98710013FE85 /* Models */,
 				55732B7222E92C0900DB7717 /* Assets.xcassets */,
 				55732B7722E92C0900DB7717 /* LaunchScreen.storyboard */,
 				55732B7A22E92C0900DB7717 /* Info.plist */,
