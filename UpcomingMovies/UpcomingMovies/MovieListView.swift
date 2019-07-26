@@ -14,6 +14,7 @@ import URLImage
 struct MoviesView : View {
     @EnvironmentObject var movieProvider: MoviesProvider
     @EnvironmentObject var genreProvider: GenresProvider
+    @State private var searchQuery: String = ""
 
     var body: some View {
         
@@ -29,7 +30,7 @@ struct MoviesView : View {
                                 Text(item.getGenreTextListForCodes(genres: self.genreProvider.genres)).font(.caption)
                             }
                         }
-                    }
+                    }                    
                 }
                 
                 Button(action: {self.movieProvider.fetch()}, label: {

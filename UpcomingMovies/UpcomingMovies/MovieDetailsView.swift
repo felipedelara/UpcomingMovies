@@ -22,7 +22,7 @@ struct MovieDetailsView : View {
             }
             Text(movieItem.title ?? "no title").lineLimit(3).font(.title)
             Text(movieItem.releaseDate ?? "no release date")
-            Text(movieItem.getGenreTextListForCodes(genres: self.genres))
+            Text(movieItem.getGenreTextListForCodes(genres: self.genres)).padding()
             Text(movieItem.overview ?? "no overview").lineLimit(100).padding()
             Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow)
 
