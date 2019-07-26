@@ -1,15 +1,21 @@
 # UpcomingMovies
 
-iOS project consuming the movie API from https://developers.themoviedb.org/3/
+iOS project built with Swift 5 on Beta.
 
-JSON scheme was converted to Swift classes using quicktype (with added adjustments).
+Requires xcode-beta 11 and an iOS 13 simulator.
 
-TODO:
-- Detail view with added information about the movies
-- Implementing movie genres - probably though another API call
-- Figure out a way to do infinite scrolling with the new paradigma of SwiftUI
-- Search for movies
+## External resources:
+- Based on the movie API from https://developers.themoviedb.org/3/
+- JSON scheme was converted to Swift classes using quicktype (with added adjustments).
+- The only external library is URLImage by Dmytro, which allows easy image loading from URLs. Dependecy was added via Swift Packages. See https://github.com/dmytro-anokhin/url-image
 
+## COULD DO:
+- Add a view model layer / implementing MVVM.
 
-![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/screenshot.png)
+## Screenshots:
+
+![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/1.png)
+![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/2.png)
+![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/3.png)
+![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/4.png)
 
