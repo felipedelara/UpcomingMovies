@@ -130,7 +130,7 @@ extension Dates {
 }
 
 typealias Movies = [Result]
-typealias MovieItem = Result
+typealias Movie = Result
 
 // MARK: - Result
 class Result: Codable, Identifiable{

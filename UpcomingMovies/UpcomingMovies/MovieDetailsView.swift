@@ -10,7 +10,7 @@ import SwiftUI
 import URLImage
 
 struct MovieDetailsView : View {
-    var movieItem: MovieItem
+    var movieItem: Movie
     var genres: Genres
     
     var body: some View {
@@ -66,7 +66,7 @@ struct Chart : View {
 
 
 #if DEBUG
-let movieItem = MovieItem(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
+let movieItem = Movie(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
 let genres : Genres = []
 
 struct MovieDetailsView_Previews : PreviewProvider {

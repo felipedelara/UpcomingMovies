@@ -16,24 +16,34 @@ struct MoviesView : View {
     @EnvironmentObject var genreProvider: GenresProvider
     @State private var searchQuery: String = ""
 
+    private var listViewModel : MoviesViewModel {
+        return MoviesViewModel(movieModels: movieProvider.movies)
+    }
+    
     var body: some View {
-        
         NavigationView {
             List{
-                ForEach (movieProvider.movies){ item in
-                    NavigationLink(destination: MovieDetailsView(movieItem: item, genres: self.genreProvider.genres)) {
-                        HStack{
-                            URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
-                            VStack(alignment: .leading){
-                                Text(item.title ?? "no title").font(.headline)
-                                Text(item.releaseDate ?? "no date").font(.subheadline)
-                                Text(item.getGenreTextListForCodes(genres: self.genreProvider.genres)).font(.caption)
+                if self.movieProvider.movies.isEmpty{
+                    Text("No movies loaded yet")
+                }else{
+                    ForEach (movieProvider.movies){ item in
+                        NavigationLink(destination: MovieDetailsView(movieItem: item, genres: self.genreProvider.genres)) {
+                            HStack{
+                                URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
+                                VStack(alignment: .leading){
+                                    Text(item.title ?? "no title").font(.headline)
+                                    Text(item.releaseDate ?? "no date").font(.subheadline)
+                                    Text(item.getGenreTextListForCodes(genres: self.genreProvider.genres)).font(.caption)
+                                }
                             }
-                        }
-                    }                    
+                        }                    
+                    }
                 }
-                
                 Button(action: {self.movieProvider.fetch()}, label: {
+//                    var loadButtonText = "Load More"
+//                    if self.movieProvider.movies.isEmpty{
+//                        loadButtonText = ""
+//                    }
                     Text("Load More").font(.title).foregroundColor(Color.blue).frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 })
             }.navigationBarTitle(Text("Upcoming Movies"))
