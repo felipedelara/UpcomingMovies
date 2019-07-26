@@ -22,7 +22,7 @@ struct MoviesView : View {
                 ForEach (movieProvider.movies){ item in
                     NavigationLink(destination: MovieDetailsView(movieItem: item, genres: self.genreProvider.genres)) {
                         HStack{
-                            URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).padding(10)
+                            URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
                             VStack(alignment: .leading){
                                 Text(item.title ?? "no title").font(.headline)
                                 Text(item.releaseDate ?? "no date").font(.subheadline)

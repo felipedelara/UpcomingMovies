@@ -14,20 +14,19 @@ struct MovieDetailsView : View {
     var genres: Genres
     
     var body: some View {
+
         VStack{
             HStack{
-                URLImage(movieItem.getAbsolutePosterURL()).resizable().frame(width: 100.0, height: 150.0)
-                URLImage(movieItem.getAbsoluteBackdropURL()).resizable().frame(width: 100.0, height: 150.0)
+                URLImage(movieItem.getAbsolutePosterURL()).resizable().scaledToFit().frame(width: 100.0, height: 150.0).cornerRadius(5)
+                URLImage(movieItem.getAbsoluteBackdropURL()).resizable().scaledToFit().frame(height: 150.0).cornerRadius(5)
             }
-            
-            Text(movieItem.title ?? "no title").font(.title)
+            Text(movieItem.title ?? "no title").lineLimit(3).font(.title)
             Text(movieItem.releaseDate ?? "no release date")
             Text(movieItem.getGenreTextListForCodes(genres: self.genres))
-
             Text(movieItem.overview ?? "no overview").lineLimit(100).padding()
-            Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow).padding()
-            Spacer()
-        }
+            Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow)
+
+        }.padding()
     }
 }
 
