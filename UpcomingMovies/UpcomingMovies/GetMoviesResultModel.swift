@@ -192,6 +192,25 @@ class Result: Codable, Identifiable{
         return url!
     }
     
+    public func getGenreTextListForCodes(genres: Genres) -> String{
+        var resultString = ""
+        var isFirst = true
+        for code in self.genreIDS ?? []{
+            
+            for genre in genres{
+                if code == genre.id{
+                    if isFirst{
+                        resultString.append(genre.name ?? "")
+                        isFirst = false
+                    }else{
+                        resultString.append(", \(genre.name ?? "")")
+                    }
+                }
+            }
+        }
+        return resultString
+    }
+    
     public func getAbsoluteBackdropURL() -> URL{
         let stringURL = "https://image.tmdb.org/t/p/w500/\(self.backdropPath ?? "")"
         let url = URL(string: stringURL)
@@ -261,20 +280,3 @@ extension Result {
     }
 }
 
-// MARK: - Helper functions for creating encoders and decoders
-
-func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
-    }
-    return decoder
-}
-
-func newJSONEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        encoder.dateEncodingStrategy = .iso8601
-    }
-    return encoder
-}

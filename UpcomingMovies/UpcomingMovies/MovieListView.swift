@@ -13,17 +13,20 @@ import URLImage
 
 struct MoviesView : View {
     @EnvironmentObject var movieProvider: MoviesProvider
-    
+    @EnvironmentObject var genreProvider: GenresProvider
+
     var body: some View {
+        
         NavigationView {
             List{
                 ForEach (movieProvider.movies){ item in
-                    NavigationLink(destination: MovieDetailsView(movieItem: item)) {
+                    NavigationLink(destination: MovieDetailsView(movieItem: item, genres: self.genreProvider.genres)) {
                         HStack{
                             URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).padding(10)
                             VStack(alignment: .leading){
-                                Text(item.title ?? "no title").font(.title)
-                                Text(item.releaseDate ?? "no date")
+                                Text(item.title ?? "no title").font(.headline)
+                                Text(item.releaseDate ?? "no date").font(.subheadline)
+                                Text(item.getGenreTextListForCodes(genres: self.genreProvider.genres)).font(.caption)
                             }
                         }
                     }

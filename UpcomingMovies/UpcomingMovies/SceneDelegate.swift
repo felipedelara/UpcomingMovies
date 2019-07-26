@@ -22,7 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             let moviesProvider = MoviesProvider()
             moviesProvider.fetch()
-            window.rootViewController = UIHostingController(rootView: MoviesView().environmentObject(moviesProvider))//.environment(\.colorScheme, .dark)
+            let genresProvider = GenresProvider()
+            genresProvider.fetch()
+            window.rootViewController = UIHostingController(rootView: MoviesView().environmentObject(moviesProvider).environmentObject(genresProvider))//.environment(\.colorScheme, .dark)
             self.window = window
             window.makeKeyAndVisible()
         }
