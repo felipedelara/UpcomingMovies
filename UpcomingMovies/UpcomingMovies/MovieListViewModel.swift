@@ -7,15 +7,17 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
 public class MoviesViewModel{
     private let movieModels : Movies
-    
+
     init(movieModels: Movies) {
         self.movieModels = movieModels
     }
     
-    var list : [MovieViewModel] {
+    var movies : [MovieViewModel] {
         var moviesVM : [MovieViewModel] = []
         for item in movieModels{
             moviesVM.append(MovieViewModel(movie: item))
@@ -24,12 +26,15 @@ public class MoviesViewModel{
     }
 }
 
-public class MovieViewModel{
-    
+public class MovieViewModel: Identifiable{
     private let movie : Movie
     
     init(movie: Movie){
         self.movie = movie
+    }
+    
+    public var id : Int? {
+        return movie.id
     }
 
     var title : String {
@@ -57,6 +62,24 @@ public class MovieViewModel{
     
     var releaseDate : String {
         return movie.releaseDate ?? "unknown release date"
+    }
+    
+    func getGenreTextListForCodes(genres: Genres) -> String{
+        var resultString = ""
+        var isFirst = true
+        for code in self.movie.genreIDS ?? []{
+            for genre in genres{
+                if code == genre.id{
+                    if isFirst{
+                        resultString.append(genre.name ?? "")
+                        isFirst = false
+                    }else{
+                        resultString.append(", \(genre.name ?? "")")
+                    }
+                }
+            }
+        }
+        return resultString
     }
     
 }

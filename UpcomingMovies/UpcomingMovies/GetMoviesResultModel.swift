@@ -192,24 +192,23 @@ class Result: Codable, Identifiable{
         return url!
     }
     
-    public func getGenreTextListForCodes(genres: Genres) -> String{
-        var resultString = ""
-        var isFirst = true
-        for code in self.genreIDS ?? []{
-            
-            for genre in genres{
-                if code == genre.id{
-                    if isFirst{
-                        resultString.append(genre.name ?? "")
-                        isFirst = false
-                    }else{
-                        resultString.append(", \(genre.name ?? "")")
-                    }
-                }
-            }
-        }
-        return resultString
-    }
+//    public func getGenreTextListForCodes(genres: Genres) -> String{
+//        var resultString = "-"
+//        var isFirst = true
+//        for code in self.genreIDS ?? []{
+//            for genre in genres{
+//                if code == genre.id{
+//                    if isFirst{
+//                        resultString.append(genre.name ?? "")
+//                        isFirst = false
+//                    }else{
+//                        resultString.append(", \(genre.name ?? "")")
+//                    }
+//                }
+//            }
+//        }
+//        return resultString
+//    }
     
     public func getAbsoluteBackdropURL() -> URL{
         let stringURL = "https://image.tmdb.org/t/p/w500/\(self.backdropPath ?? "")"

@@ -23,16 +23,16 @@ struct MoviesView : View {
     var body: some View {
         NavigationView {
             List{
-                if self.movieProvider.movies.isEmpty{
+                if listViewModel.movies.isEmpty{
                     Text("No movies loaded yet")
                 }else{
-                    ForEach (movieProvider.movies){ item in
-                        NavigationLink(destination: MovieDetailsView(movieItem: item, genres: self.genreProvider.genres)) {
+                    ForEach (listViewModel.movies){ item in
+                        NavigationLink(destination: MovieDetailsView(movieViewModel: item, genres: self.genreProvider.genres)) {
                             HStack{
-                                URLImage(item.getAbsolutePosterURL()).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
+                                URLImage(item.posterPath).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
                                 VStack(alignment: .leading){
-                                    Text(item.title ?? "no title").font(.headline)
-                                    Text(item.releaseDate ?? "no date").font(.subheadline)
+                                    Text(item.title).font(.headline)
+                                    Text(item.releaseDate).font(.subheadline)
                                     Text(item.getGenreTextListForCodes(genres: self.genreProvider.genres)).font(.caption)
                                 }
                             }
