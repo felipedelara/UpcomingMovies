@@ -22,9 +22,10 @@ struct MovieDetailsView : View {
             }
             Text(movieViewModel.title).lineLimit(3).font(.title)
             Text(movieViewModel.releaseDate)
-//            Text(movieItem.getGenreTextListForCodes(genres: self.genres)).padding()
-//            Text(movieViewModel.overview).lineLimit(100).padding()
-//            Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow)
+            Text(movieViewModel.adultText)
+            Text(movieViewModel.getGenreTextListForCodes(genres: genres)).padding()
+            Text(movieViewModel.overview).lineLimit(100).padding()
+            Chart(label: "Score", value: movieViewModel.voteAverage, maxValue: 10.0, color: Color.yellow).padding()
             Spacer()
             
         }.padding()

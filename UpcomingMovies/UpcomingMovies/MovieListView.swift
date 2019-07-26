@@ -40,11 +40,7 @@ struct MoviesView : View {
                     }
                 }
                 Button(action: {self.movieProvider.fetch()}, label: {
-//                    var loadButtonText = "Load More"
-//                    if self.movieProvider.movies.isEmpty{
-//                        loadButtonText = ""
-//                    }
-                    Text("Load More").font(.title).foregroundColor(Color.blue).frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
+                    Text(listViewModel.buttonText).font(.title).foregroundColor(Color.blue).frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
                 })
             }.navigationBarTitle(Text("Upcoming Movies"))
         }
