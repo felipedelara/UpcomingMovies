@@ -30,7 +30,9 @@ class MoviesProvider: BindableObject {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             
+            print("Completion block")
             guard let data = data, error == nil else {
+                print("Data unwrapping failed")
                 return
             }
             guard let requestResultModel = try? GetMoviesResultModel(data: data) else {

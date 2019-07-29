@@ -10,22 +10,24 @@ import SwiftUI
 import URLImage
 
 struct MovieDetailsView : View {
-    var movieItem: MovieItem
+    var movieViewModel: MovieViewModel
     var genres: Genres
     
     var body: some View {
 
         VStack{
             HStack{
-                URLImage(movieItem.getAbsolutePosterURL()).resizable().scaledToFit().frame(width: 100.0, height: 150.0).cornerRadius(5)
-                URLImage(movieItem.getAbsoluteBackdropURL()).resizable().scaledToFit().frame(height: 150.0).cornerRadius(5)
+                URLImage(movieViewModel.posterPath).resizable().scaledToFit().frame(width: 100.0, height: 150.0).cornerRadius(5)
+                URLImage(movieViewModel.backdropPath).resizable().scaledToFit().frame(height: 150.0).cornerRadius(5)
             }
-            Text(movieItem.title ?? "no title").lineLimit(3).font(.title)
-            Text(movieItem.releaseDate ?? "no release date")
-            Text(movieItem.getGenreTextListForCodes(genres: self.genres)).padding()
-            Text(movieItem.overview ?? "no overview").lineLimit(100).padding()
-            Chart(label: "Score", value: movieItem.voteAverage ?? 0.0, maxValue: 10.0, color: Color.yellow)
-
+            Text(movieViewModel.title).lineLimit(3).font(.title)
+            Text(movieViewModel.releaseDate)
+            Text(movieViewModel.adultText)
+            Text(movieViewModel.getGenreTextListForCodes(genres: genres)).padding()
+            Text(movieViewModel.overview).lineLimit(100).padding()
+            Chart(label: "Score", value: movieViewModel.voteAverage, maxValue: 10.0, color: Color.yellow).padding()
+            Spacer()
+            
         }.padding()
     }
 }
@@ -66,12 +68,12 @@ struct Chart : View {
 
 
 #if DEBUG
-let movieItem = MovieItem(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
+let movie = Movie(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")
 let genres : Genres = []
 
 struct MovieDetailsView_Previews : PreviewProvider {
     static var previews: some View {
-        MovieDetailsView(movieItem: movieItem, genres: genres)
+        MovieDetailsView(movieViewModel: MovieViewModel(movie: movie), genres: genres)
     }
 }
 #endif
