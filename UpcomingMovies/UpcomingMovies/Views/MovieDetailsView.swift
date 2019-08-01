@@ -13,59 +13,37 @@ struct MovieDetailsView : View {
     var movieViewModel: MovieViewModel
     var genres: Genres
     
-    var body: some View {
-
-        VStack{
-            HStack{
-                URLImage(movieViewModel.posterPath).resizable().scaledToFit().frame(width: 100.0, height: 150.0).cornerRadius(5)
-                URLImage(movieViewModel.backdropPath).resizable().scaledToFit().frame(height: 150.0).cornerRadius(5)
-            }
-            Text(movieViewModel.title).lineLimit(3).font(.title)
-            Text(movieViewModel.releaseDate)
-            Text(movieViewModel.adultText)
-            Text(movieViewModel.getGenreTextListForCodes(genres: genres)).padding()
-            Text(movieViewModel.overview).lineLimit(100).padding()
-            Chart(label: "Score", value: movieViewModel.voteAverage, maxValue: 10.0, color: Color.yellow).padding()
-            Spacer()
-            
-        }.padding()
-    }
-}
-
-struct Chart : View {
-    var label : String
-    var value : Double
-    var maxValue : Double
-    var color: Color
+    let posterHeight: Length = 180.0
+    let posterWidth: Length = 120.0
+    
+    let bannerHeight : Length = 220
+    
+    var yOffset : CGFloat { -bannerHeight - (posterHeight/3) }
     
     var body: some View {
-        HStack{
-            Text("\(label): \(value.format(f: ".1"))")
-            ZStack {
-                //Draw gray bar with total size
-                GeometryReader { geometry in
-                    Path{ path in
-                        let width = geometry.size.width
-                        let desiredHeight = CGFloat(25.0)
-                        let y = (geometry.size.height / 2 ) - (desiredHeight / 2)
-                        path.addRect(CGRect(x: 0.0, y: y, width: width, height: desiredHeight))
-                    }.fill(Color("LightGray"))
-                }
-                //Draw colored bar for the percentage
-                GeometryReader { geometry in
-                    Path{ path in
-                        let percentage = CGFloat(self.value * self.maxValue) / 100
-                        let filledWidth = geometry.size.width * percentage
-                        let desiredHeight = CGFloat(25.0)
-                        let y = (geometry.size.height / 2 ) - (desiredHeight / 2)
-                        path.addRect(CGRect(x: 0.0, y: y, width: filledWidth, height: desiredHeight))
-                    }.fill(Color.yellow)
-                }
-            }.padding()
+        VStack(alignment: .leading){
+            ZStack{
+                URLImage(movieViewModel.backdropPath).resizable().scaledToFill()
+                BlurView(style: .systemUltraThinMaterialDark)
+            }.frame(height: bannerHeight).edgesIgnoringSafeArea(.top)
+            
+            HStack{
+                URLImage(movieViewModel.posterPath).resizable().frame(width: posterWidth, height: posterHeight).overlay(
+                    Rectangle().stroke(Color.white, lineWidth: 6)).cornerRadius(4)
+                Text(movieViewModel.title).lineLimit(2).font(.title).foregroundColor(.white).shadow(radius: 5).offset(y: -10)
+            }.offset(y: yOffset).padding(.bottom, yOffset).padding()
+            
+            VStack{
+                Text("Release in: \(movieViewModel.releaseDate)")
+                Text(movieViewModel.getGenreTextListForCodes(genres: genres)).lineLimit(2)
+                Spacer()
+                Text(movieViewModel.overview).lineLimit(15)
+                ChartView(label: "Score", value: movieViewModel.voteAverage, maxValue: 10.0, color: Color.yellow).padding()
+                Spacer()
+            }.offset(y: -posterHeight*2/3).padding()
         }
     }
 }
-
 
 #if DEBUG
 let movie = Movie(voteCount: 0, id: 100, video: true, voteAverage: 9.5, title: "Movie Title", popularity: 9.0, posterPath: "/wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg", originalLanguage: "en", originalTitle: "Original Title", genreIDS: [1,2,3], backdropPath: "", adult: false, overview: "Overview Here", releaseDate: "2020-01-01")

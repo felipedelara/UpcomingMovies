@@ -20,6 +20,10 @@ struct MoviesView : View {
         return MoviesViewModel(movieModels: movieProvider.movies)
     }
     
+    init() {
+        UINavigationBar.appearance().tintColor = UIColor.white
+    }
+    
     var body: some View {
         NavigationView {
             List{
@@ -29,7 +33,7 @@ struct MoviesView : View {
                     ForEach (listViewModel.movies){ item in
                         NavigationLink(destination: MovieDetailsView(movieViewModel: item, genres: self.genreProvider.genres)) {
                             HStack{
-                                URLImage(item.posterPath).resizable().frame(width: 50.0, height: 75.0).cornerRadius(5).padding(10)
+                                URLImage(item.posterPath).resizable().frame(width: 50.0, height: 75.0).cornerRadius(3).padding(10)
                                 VStack(alignment: .leading){
                                     Text(item.title).font(.headline)
                                     Text(item.releaseDate).font(.subheadline)

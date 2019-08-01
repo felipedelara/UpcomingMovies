@@ -43,6 +43,7 @@ class MoviesProvider: BindableObject {
                  print("Failed to get movies.")
                 return
             }
+            print(addedMovies.count)
             DispatchQueue.main.async {
                 self.page += 1
                 self.movies += addedMovies
