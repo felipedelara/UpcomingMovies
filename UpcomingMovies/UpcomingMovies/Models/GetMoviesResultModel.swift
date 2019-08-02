@@ -1,10 +1,10 @@
-//   let movieResultModel = try MovieResultModel(json)
+
+// This file was generated from JSON Schema using quicktype
+// Modificate with caution
 
 import Foundation
 import Combine
 import SwiftUI
-
-//   let resultModel = try ResultModel(json)
 
 // MARK: - ResultModel
 class GetMoviesResultModel: Codable {
@@ -130,6 +130,7 @@ extension Dates {
 }
 
 typealias Movies = [Result]
+typealias Movie = Result
 
 // MARK: - Result
 class Result: Codable, Identifiable{
@@ -140,7 +141,7 @@ class Result: Codable, Identifiable{
     let title: String?
     let popularity: Double?
     let posterPath: String?
-    let originalLanguage: OriginalLanguage?
+    let originalLanguage: String?
     let originalTitle: String?
     let genreIDS: [Int]?
     let backdropPath: String?
@@ -148,24 +149,25 @@ class Result: Codable, Identifiable{
     let overview: String?
     let releaseDate: String?
     
+    //Quicktype is not handling complex key names very well, so if they have more that one word it is best to specify
     enum CodingKeys: String, CodingKey {
         case voteCount
         case id
         case video
-        case voteAverage
+        case voteAverage = "vote_average"
         case title
         case popularity
         case posterPath = "poster_path"
-        case originalLanguage
+        case originalLanguage = "original_language"
         case originalTitle = "original_title"
-        case genreIDS
-        case backdropPath
+        case genreIDS = "genre_ids"
+        case backdropPath = "backdrop_path"
         case adult
         case overview
-        case releaseDate
+        case releaseDate = "release_date"
     }
     
-    init(voteCount: Int?, id: Int?, video: Bool?, voteAverage: Double?, title: String?, popularity: Double?, posterPath: String?, originalLanguage: OriginalLanguage?, originalTitle: String?, genreIDS: [Int]?, backdropPath: String?, adult: Bool?, overview: String?, releaseDate: String?) {
+    init(voteCount: Int?, id: Int?, video: Bool?, voteAverage: Double?, title: String?, popularity: Double?, posterPath: String?, originalLanguage: String?, originalTitle: String?, genreIDS: [Int]?, backdropPath: String?, adult: Bool?, overview: String?, releaseDate: String?) {
         self.voteCount = voteCount
         self.id = id
         self.video = video
@@ -185,8 +187,31 @@ class Result: Codable, Identifiable{
     //Technical Debt, safe unwrapping this here until I figure how to handle not returning an optional to the SwiftUI View
     public func getAbsolutePosterURL() -> URL{
         //Example: https://image.tmdb.org/t/p/w500///wUTiyJ9N8rVLOxJz7aVpaBLpbot.jpg
-        let stringURL = "https://image.tmdb.org/t/p/w500//\(self.posterPath ?? "")"
-        print(stringURL)
+        let stringURL = "https://image.tmdb.org/t/p/w500/\(self.posterPath ?? "")"
+        let url = URL(string: stringURL)
+        return url!
+    }
+    
+//    public func getGenreTextListForCodes(genres: Genres) -> String{
+//        var resultString = "-"
+//        var isFirst = true
+//        for code in self.genreIDS ?? []{
+//            for genre in genres{
+//                if code == genre.id{
+//                    if isFirst{
+//                        resultString.append(genre.name ?? "")
+//                        isFirst = false
+//                    }else{
+//                        resultString.append(", \(genre.name ?? "")")
+//                    }
+//                }
+//            }
+//        }
+//        return resultString
+//    }
+    
+    public func getAbsoluteBackdropURL() -> URL{
+        let stringURL = "https://image.tmdb.org/t/p/w500/\(self.backdropPath ?? "")"
         let url = URL(string: stringURL)
         return url!
     }
@@ -219,7 +244,7 @@ extension Result {
         title: String?? = nil,
         popularity: Double?? = nil,
         posterPath: String?? = nil,
-        originalLanguage: OriginalLanguage?? = nil,
+        originalLanguage: String?? = nil,
         originalTitle: String?? = nil,
         genreIDS: [Int]?? = nil,
         backdropPath: String?? = nil,
@@ -254,27 +279,3 @@ extension Result {
     }
 }
 
-enum OriginalLanguage: String, Codable {
-    case de = "de"
-    case en = "en"
-    case es = "es"
-    case ko = "ko"
-}
-
-// MARK: - Helper functions for creating encoders and decoders
-
-func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
-    }
-    return decoder
-}
-
-func newJSONEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        encoder.dateEncodingStrategy = .iso8601
-    }
-    return encoder
-}
