@@ -19,11 +19,13 @@ Requires xcode-beta 11 and an iOS 13 simulator.
 ## Screenshots:
 
 ![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/1.png)
+
 ![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/2.png)
 
 
 Dark Mode:
 
 ![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/3.png)
+
 ![alt text](https://github.com/felipedelara/UpcomingMovies/blob/develop/Screenshots/4.png)
 
